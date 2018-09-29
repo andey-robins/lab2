@@ -17,8 +17,6 @@ List::List()
 List::List(const List & other)
 	: first_(clone(other.first_))
 {
-  int temp = other.getSize();
-  setSize(temp);
 }
 
 
@@ -67,11 +65,22 @@ bool List::operator==(const List &rhs){
 }
 
 int List::getSize() const {
-  return numberOfItems;
-}
 
-void List::setSize(int n) {
-  numberOfItems = n;
+	int numberOfItems = 0;
+
+	if (first_ == NULL) {
+		return numberOfItems;
+	} else {
+		Node* ptr = first_;
+		numberOfItems++;
+
+		while (ptr->next_ != NULL) {
+			ptr = ptr->next_;
+			numberOfItems++;
+		}
+	}
+
+  return numberOfItems;
 }
 
 bool List::empty() const
@@ -83,12 +92,9 @@ bool List::empty() const
 void List::insertAsFirst(double x)
 {
 	first_ = new Node(x, first_);
-  numberOfItems++;
 }
 
 void List::insertAsLast(double x) {
-
-  numberOfItems++;
 
   if (first_ == NULL){
     insertAsFirst(x);
@@ -112,7 +118,6 @@ double List::removeFirst()
 	Node * tempPtr = first_;
 	first_ = first_->next_;
 	delete tempPtr;
-  numberOfItems--;
 	return item;
 }
 

@@ -47,8 +47,6 @@ public:
   //post: returns the number of elements in the list
   int getSize() const;
 
-  void setSize(int n);
-
 	// Test for equality
 	bool operator==(const List &rhs);
 
@@ -90,7 +88,6 @@ private:
 
 private:
 	Node * first_;
-  int numberOfItems = 0;
 
 };
 
