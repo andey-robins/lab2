@@ -17,6 +17,8 @@ List::List()
 List::List(const List & other)
 	: first_(clone(other.first_))
 {
+  int temp = other.getSize();
+  setSize(temp);
 }
 
 
@@ -43,7 +45,7 @@ const List & List::operator=(const List & other)
 }
 
 bool List::operator==(const List &rhs){
-    if(size() == 0 && rhs.size() == 0){return true;}//both empty
+    /*if(size() == 0 && rhs.size() == 0){return true;}//both empty
     if(size() != rhs.size()){return false;}//sizes not the same
 
     Node * lptr = this->next_;
@@ -60,10 +62,17 @@ bool List::operator==(const List &rhs){
       lEntry = lptr->entry_;
       rEntry = rptr->entry_;
 		}
-
+*/
   	return true;
 }
 
+int List::getSize() const {
+  return numberOfItems;
+}
+
+void List::setSize(int n) {
+  numberOfItems = n;
+}
 
 bool List::empty() const
 {
@@ -74,6 +83,32 @@ bool List::empty() const
 void List::insertAsFirst(double x)
 {
 	first_ = new Node(x, first_);
+  numberOfItems++;
+}
+
+void List::insertAsLast(double x) {
+
+  numberOfItems++;
+
+  if (first_ == NULL){
+    insertAsFirst(x);
+  } else {
+    Node* ptr = first_->next_;
+    while (ptr != NULL)
+		{
+			ptr = ptr->next_;
+		}
+    ptr = new Node(x, ptr);
+    Node* newNode = ptr;
+
+    ptr = first_;
+    for (int i = 0; i < getSize(); i++){
+      ptr = ptr->next_;
+    }
+    ptr = new Node(ptr->entry_, newNode);
+  }
+
+  return;
 }
 
 
@@ -83,9 +118,27 @@ double List::removeFirst()
 	Node * tempPtr = first_;
 	first_ = first_->next_;
 	delete tempPtr;
+  numberOfItems--;
 	return item;
 }
 
+
+double List::sum() const {
+  
+  double sum = 0;
+  
+  if (!empty()){
+    sum += first_->entry_;
+    Node* ptr = first_->next_;
+    while (ptr != NULL)
+		{
+			sum += ptr->entry_;
+			ptr = ptr->next_;
+		}
+  }
+
+  return sum;
+}
 
 void List::print(ostream & outfile) const
 {

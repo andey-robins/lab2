@@ -43,6 +43,12 @@ public:
 	//         in other
 	const List & operator=(const List & other);
 
+  //Size value
+  //post: returns the number of elements in the list
+  int getSize() const;
+
+  void setSize(int n);
+
 	// Test for equality
 	bool operator==(const List &rhs);
 
@@ -56,12 +62,15 @@ public:
 	//         outfile.
 	void print(ostream & outfile) const;
 
+  double sum() const;
 
 	//*** Mutators ***
 
 	// post: x has been added as the first double in this
 	//         List.
 	void insertAsFirst(double x);
+
+  void insertAsLast(double x);
 
 	// pre:  this List is not empty.
 	// post: the first double in this List has been removed
@@ -79,9 +88,9 @@ private:
 	//         targeted by ptr has been returned.
 	static Node * clone(Node * ptr);
 
-
 private:
 	Node * first_;
+  int numberOfItems = 0;
 
 };
 
