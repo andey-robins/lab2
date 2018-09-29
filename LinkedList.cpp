@@ -93,19 +93,13 @@ void List::insertAsLast(double x) {
   if (first_ == NULL){
     insertAsFirst(x);
   } else {
-    Node* ptr = first_->next_;
-    while (ptr != NULL)
-		{
+		Node* newEntry = new Node(x);
+		Node* ptr = first_;
+
+		while (ptr->next_ != NULL) {
 			ptr = ptr->next_;
 		}
-    ptr = new Node(x, ptr);
-    Node* newNode = ptr;
-
-    ptr = first_;
-    for (int i = 0; i < getSize(); i++){
-      ptr = ptr->next_;
-    }
-    ptr = new Node(ptr->entry_, newNode);
+		ptr->next_ = newEntry;
   }
 
   return;
@@ -124,9 +118,9 @@ double List::removeFirst()
 
 
 double List::sum() const {
-  
+
   double sum = 0;
-  
+
   if (!empty()){
     sum += first_->entry_;
     Node* ptr = first_->next_;
